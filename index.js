@@ -1,5 +1,5 @@
 const server = require("./src/server");
-
+require("./src/mongodb");
 
 const port = process.env.PORT || 3000;
 
