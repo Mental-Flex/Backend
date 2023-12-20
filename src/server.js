@@ -1,9 +1,11 @@
 
+const { createRoles } = require("./libs/initialSetUp");
 const express = require("express");
 const server = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const multer = require("multer");
+createRoles()
 
 
 server.use(morgan("dev"));
