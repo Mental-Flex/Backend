@@ -4,6 +4,7 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const morgan = require("morgan");
+const router = require("./routes/index");
 const multer = require("multer");
 createRoles()
 
@@ -17,5 +18,7 @@ server.use(express.json());
 //     useTempFiles: true,
 //     tempFileDir: './src/public/upload' // ./upload/
 // }));
+
+server.use("/", router);
 
 module.exports = server;

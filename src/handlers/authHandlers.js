@@ -35,7 +35,9 @@ const getUser = async (req, res) => {
     } catch (error) {
         res.status(404).json({error: error.message})
     }
-}
+};
+
+
 
 
   
@@ -43,6 +45,7 @@ const getUser = async (req, res) => {
 module.exports = {
     postUser,
     getUser,
+    
     
 };
   
