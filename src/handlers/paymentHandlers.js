@@ -29,20 +29,22 @@ const createOrder = async(req, res) => {
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const {data} = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
+       const {data: {access_token}} = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
             auth: {
                 username: PAYPAL_API_CLIENT,
                 password: PAYPAL_API_SECRET
             }
         })
 
-        axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
+       const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
+
+                Authorization: `Bearer ${access_token}`
                 
             }
         })
 
-
+    
 
     
 
