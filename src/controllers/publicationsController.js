@@ -1,4 +1,4 @@
-const Publications = require('../models/Publications')
+const Publication = require('../models/Publications')
 
 const createPublication =  async (name, category, description, image) => {
     const newPublication = new Publication({
@@ -20,9 +20,17 @@ const getAllPublications = async () => {
 };
 
 
+const getPublicationById = async (idPublication) => {
+  const publicationById = await Publication.findById(idPublication);
+
+  return publicationById;
+};
+
+
 
 module.exports = {
   createPublication,
   getAllPublications,
+  getPublicationById
   
 };

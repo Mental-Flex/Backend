@@ -1,6 +1,7 @@
 const {
     createPublication,
     getAllPublications,
+    getPublicationById,
   } = require("../controllers/publicationsController");
   const Category = require("../models/Category");
   const { uploadImage } = require("../cloudinary");
@@ -24,7 +25,7 @@ const {
       let categories = await Category.findOne({ name: categoryName });
 
       if (categories) {
-        newProduct.category.push(categories.id);
+        newPublication.category.push(categories.id);
       }
     }
 
@@ -65,11 +66,25 @@ const {
   }
     
   };
+
+
+  const getPublicationByIdHandler = async (req, res) => {
+    const { idPublication } = req.params;
+  
+    try {
+      const publication = await getPublicationById(idPublication);
+      res.status(200).json(publication);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+  
   
 
   module.exports = {
     createPublicationHandler,
     getPublicationsHandler,
+    getPublicationByIdHandler
    
   };
   
