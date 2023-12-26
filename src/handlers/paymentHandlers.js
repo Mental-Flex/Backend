@@ -29,12 +29,7 @@ const createOrder = async(req, res) => {
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const {data: {access_token}} = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
-            auth: {
-                username: PAYPAL_API_CLIENT,
-                password: PAYPAL_API_SECRET
-            }
-        })
+       const access_token = "A21AAIX_0HpsgihxlytkdjbaNqCczjwvdPPqv0M9buqjh6VVA56f3chM9MTTbY6eJU3GTvmtazOmbzABJLX_vJeEgF9IwhkSQ"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -43,6 +38,10 @@ const createOrder = async(req, res) => {
                 
             }
         })
+
+        
+
+       return  res.json(response.data)
 
     
 
@@ -58,17 +57,21 @@ const createOrder = async(req, res) => {
 
 const captureOrder = async(req, res) => {
 
+// const {token} = req.query
 
 
-try{
+//     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
+//         auth:{
+//             username: PAYPAL_API_CLIENT,
+//             password: PAYPAL_API_SECRET
+//         }
+//     })
 
-   
+//    console.log(response.data)
 
-    }catch(error){
+ res.send("payed")
 
-        res.status(400).json({error: error.message})
-    }
-
+    
 
 
 }
