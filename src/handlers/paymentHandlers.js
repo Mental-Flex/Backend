@@ -54,19 +54,22 @@ const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js
 
 const captureOrder = async(req, res) => {
 
-// const {token} = req.query
+const {token} = req.query
 
 
-//     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
-//         auth:{
-//             username: PAYPAL_API_CLIENT,
-//             password: PAYPAL_API_SECRET
-//         }
-//     })
+const access_token = "A21AAIX_0HpsgihxlytkdjbaNqCczjwvdPPqv0M9buqjh6VVA56f3chM9MTTbY6eJU3GTvmtazOmbzABJLX_vJeEgF9IwhkSQ"
 
-//    console.log(response.data)
+    const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
+        headers: {
 
- res.send("payed")
+            Authorization: `Bearer ${access_token}`
+            
+        }
+    })
+
+   console.log(response.data)
+
+return  res.send("payed")
 
     
 
