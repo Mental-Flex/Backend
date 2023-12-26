@@ -82,6 +82,8 @@ const cancelPayment = async(req, res) => {
 
 
     try{
+
+        res.redirect('/')
     
        
     
