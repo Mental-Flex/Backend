@@ -2,6 +2,7 @@ const {
     createPublication,
     getAllPublications,
     getPublicationById,
+    deletePublicationById,
   } = require("../controllers/publicationsController");
   const Category = require("../models/Category");
   const { uploadImage } = require("../cloudinary");
@@ -79,12 +80,24 @@ const {
     }
   };
   
+
+  const deletePublicationByIdHandler = async (req, res) => {
+    const { idPublication } = req.params;
+  
+    try {
+      const resultado = await deletePublicationById(idPublication);
+      res.status(200).json(resultado);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
   
 
   module.exports = {
     createPublicationHandler,
     getPublicationsHandler,
-    getPublicationByIdHandler
+    getPublicationByIdHandler,
+    deletePublicationByIdHandler
    
   };
   

@@ -1,4 +1,4 @@
-const {getAllCategories, createCategory} = require('../controllers/categoryControllers')
+const {getAllCategories, createCategory, deleteCategoryById} = require('../controllers/categoryControllers')
 
 
 const getCategoriesHandler = async(req, res) => {
@@ -36,9 +36,22 @@ try{
 
 }
 
+const deleteCategoryByIdHandler = async (req, res) => {
+    const { idCategory } = req.params;
+  
+    try {
+      const resultado = await deleteCategoryById(idCategory);
+      res.status(200).json(resultado);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+  
+
 
 
 module.exports = {
     getCategoriesHandler,
     createCategoriesHandler,
+    deleteCategoryByIdHandler
 }

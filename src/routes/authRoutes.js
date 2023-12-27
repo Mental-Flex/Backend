@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getUser, getRoles } = require('../handlers/authHandlers')
+const { getUser } = require('../handlers/authHandlers')
 const { postUser } = require('../handlers/authHandlers');
 
 const router = Router();

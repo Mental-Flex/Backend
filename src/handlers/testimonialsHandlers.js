@@ -1,4 +1,4 @@
-const {createTestimonials} = require('../controllers/testimonialsController')
+const {createTestimonials, deleteTestimonialById} = require('../controllers/testimonialsController')
 const {getAllTestimonials} = require('../controllers/testimonialsController')
 
 const createTestimonialsHandler = async (req, res) => {
@@ -36,9 +36,23 @@ const createTestimonialsHandler = async (req, res) => {
     }
 
 }
+
+
+const deleteTestimonialByIdHandler = async (req, res) => {
+  const { idTestimonial } = req.params;
+
+  try {
+    const resultado = await deleteTestimonialById(idTestimonial);
+    res.status(200).json(resultado);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
   
 
 module.exports = {
     createTestimonialsHandler,
-    getTestimonialsHandler
+    getTestimonialsHandler,
+    deleteTestimonialByIdHandler
 }
