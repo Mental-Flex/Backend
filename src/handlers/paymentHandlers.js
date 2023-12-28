@@ -24,8 +24,18 @@ const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js
             },
         };
     
-        const params = new URLSearchParams()
-        params.append('grant_type', 'client_credentials')
+        // const params = new URLSearchParams()
+        // params.append('grant_type', 'client_credentials')
+
+        // const {data: {access_token}} = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
+        //     Authorization: {
+        //         username: PAYPAL_API_CLIENT,
+        //         password: PAYPAL_API_SECRET
+        //     }
+        // })
+
+
+        
 
        const access_token = "A21AAKi7kgsqUnVf8ZVVGPWs6gWHDl7NR50cvoXmeK9FjWGn94nswJvV5I-892MOJzNFIpiSkZMQRjcIRjmZTqrfIJizDZjhw"
 
@@ -33,7 +43,7 @@ const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js
             headers: {
 
                 Authorization: `Bearer ${access_token}`
-                
+            
             }
         })
 
