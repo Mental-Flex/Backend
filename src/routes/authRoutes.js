@@ -1,11 +1,12 @@
 const { Router } = require('express');
-const { getUser } = require('../handlers/authHandlers')
+const { getUser, getUserByName } = require('../handlers/authHandlers')
 const { postUser } = require('../handlers/authHandlers');
 
 const router = Router();
 
 router.post('/', postUser)
 router.get('/',getUser)
+router.get('/username', getUserByName )
 
 
 

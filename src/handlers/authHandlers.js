@@ -37,7 +37,32 @@ const getUser = async (req, res) => {
     }
 };
 
+const getUserByName = async(req, res) => {
 
+    try{
+
+    const {username} = req.query
+
+    const user = await Users.findOne({ username: username });
+
+    if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+
+
+    res.status(200).json(user);
+
+    }catch(error){
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+
+
+
+
+
+
+
+  }
 
 
   
@@ -45,6 +70,7 @@ const getUser = async (req, res) => {
 module.exports = {
     postUser,
     getUser,
+    getUserByName
     
     
 };
