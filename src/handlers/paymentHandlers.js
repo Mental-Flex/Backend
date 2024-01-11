@@ -1,5 +1,6 @@
 const axios = require('axios') 
 const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js') 
+const Order = require('../models/Orders.js')
 
 
 
@@ -37,7 +38,7 @@ const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js
 
         
 
-       const access_token = "A21AAKi7kgsqUnVf8ZVVGPWs6gWHDl7NR50cvoXmeK9FjWGn94nswJvV5I-892MOJzNFIpiSkZMQRjcIRjmZTqrfIJizDZjhw"
+       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -77,7 +78,7 @@ const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const access_token = "A21AAKi7kgsqUnVf8ZVVGPWs6gWHDl7NR50cvoXmeK9FjWGn94nswJvV5I-892MOJzNFIpiSkZMQRjcIRjmZTqrfIJizDZjhw"
+       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -116,7 +117,7 @@ const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const access_token = "A21AAKi7kgsqUnVf8ZVVGPWs6gWHDl7NR50cvoXmeK9FjWGn94nswJvV5I-892MOJzNFIpiSkZMQRjcIRjmZTqrfIJizDZjhw"
+       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -156,7 +157,7 @@ const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const access_token = "A21AAKi7kgsqUnVf8ZVVGPWs6gWHDl7NR50cvoXmeK9FjWGn94nswJvV5I-892MOJzNFIpiSkZMQRjcIRjmZTqrfIJizDZjhw"
+       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -186,7 +187,7 @@ const captureOrder = async(req, res) => {
 const {token} = req.query
 
 
-const access_token = "A21AAKi7kgsqUnVf8ZVVGPWs6gWHDl7NR50cvoXmeK9FjWGn94nswJvV5I-892MOJzNFIpiSkZMQRjcIRjmZTqrfIJizDZjhw"
+const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
 
     const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
         headers: {
@@ -196,8 +197,53 @@ const access_token = "A21AAKi7kgsqUnVf8ZVVGPWs6gWHDl7NR50cvoXmeK9FjWGn94nswJvV5I
         }
     })
 
-   console.log(response.data)
 
+
+
+    const newOrder = new Order ({
+
+        paypal_email_address : response.data.payment_source.paypal.email_address,
+      
+        paypal_account_id:  response.data.payment_source.paypal.account_id,
+    
+    
+        paypal_account_status: response.data.payment_source.paypal.account_status,
+        
+        name: response.data.payment_source.paypal.name.given_name,
+    
+        surname: response.data.payment_source.paypal.name.surname,
+    
+        address_line_1: response.data.purchase_units[0].shipping.address.address_line_1,
+    
+        address_area_2: response.data.purchase_units[0].shipping.address.address_area_2,
+    
+        address_area_1: response.data.purchase_units[0].shipping.address.address_area_1,
+    
+        postal_code: response.data.purchase_units[0].shipping.address.postal_code,
+    
+        country_code: response.data.purchase_units[0].shipping.address.country_code,
+    
+        payment_status: response.data.purchase_units[0].payments.captures[0].status,
+
+        payment_id: response.data.purchase_units[0].payments.captures[0].id,
+    
+        payment_amount_value: response.data.purchase_units[0].payments.captures[0].amount.value,
+    
+        payment_amount_currency_code: response.data.purchase_units[0].payments.captures[0].amount.currency_code,
+    
+        payment_create: response.data.purchase_units[0].payments.captures[0].create_time,
+    
+        payment_update: response.data.purchase_units[0].payments.captures[0].update_time,
+    
+       
+    
+    })
+
+
+await newOrder.save()
+
+
+    
 return  res.send("payed")
 
     
