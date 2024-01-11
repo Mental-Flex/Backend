@@ -27,9 +27,6 @@ const orderSchema = new Schema({
         type: String
     },
 
-    address: {
-        type: String
-    },
 
     address_line_1: {
 
