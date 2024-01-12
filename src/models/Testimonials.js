@@ -5,9 +5,9 @@ const testimonialsSchema = new Schema({
     description: {
         type: String
     },
-    score: {
-        type: Number,
-        default: true
+    name: {
+        type: String
+        
     }
     
 })

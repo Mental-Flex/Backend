@@ -2,7 +2,7 @@ const {createTestimonials, deleteTestimonialById} = require('../controllers/test
 const {getAllTestimonials} = require('../controllers/testimonialsController')
 
 const createTestimonialsHandler = async (req, res) => {
-    const { description, score} = req.body;
+    const { description, name} = req.body;
   
     try {
       
@@ -10,7 +10,7 @@ const createTestimonialsHandler = async (req, res) => {
       const newTestimonial = await createTestimonials(
       
         description,
-        score
+        name
        
       );
   
