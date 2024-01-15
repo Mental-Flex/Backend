@@ -8,6 +8,18 @@ const testimonialsSchema = new Schema({
     name: {
         type: String
         
+    },
+
+    image: {
+        type: String
+    },
+
+    instagram:{
+        type: String
+    },
+
+    link: {
+        type: String
     }
     
 })

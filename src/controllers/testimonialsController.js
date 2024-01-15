@@ -2,11 +2,14 @@ const Testimonials = require('../models/Testimonials')
 const { ObjectId } = require('mongodb');
 
 
-const createTestimonials =  async (description, name) => {
+const createTestimonials =  async (description, name, image, instagram, link) => {
     const newTestimonial = new Testimonials({
      
         description,
-        name
+        name,
+        image,
+        instagram,
+        link
        
     })
 

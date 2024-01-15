@@ -1,20 +1,31 @@
 const {createTestimonials, deleteTestimonialById} = require('../controllers/testimonialsController')
 const {getAllTestimonials} = require('../controllers/testimonialsController')
+const { uploadImage } = require("../cloudinary");
+const fs = require("fs-extra");
 
 const createTestimonialsHandler = async (req, res) => {
-    const { description, name} = req.body;
+    const { description, name, instagram, link} = req.body;
   
     try {
+
+      const image = await uploadImage(req.file.path);
       
   
       const newTestimonial = await createTestimonials(
       
         description,
-        name
+        name,
+        image,
+        instagram,
+        link
        
       );
+
+      await newTestimonial.save();
+    await fs.unlink(req.file.path);
+    res.status(201).json(newTestimonial);
   
-      res.status(201).json(newTestimonial);
+      
 
     } catch (error) {
       res.status(400).json({ error: error.message });
