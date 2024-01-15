@@ -24,4 +24,4 @@ const testimonialsSchema = new Schema({
     
 })
 
-module.exports = model('testimonials', testimonialsSchema)
+module.exports = model('testimonials', testimonialsSchema) 
