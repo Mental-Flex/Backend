@@ -38,7 +38,7 @@ const Order = require('../models/Orders.js')
 
         
 
-       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
+       const access_token = "A21AAIKdBfHsWNtpKMN-bnGJyVzuhWQRMvPRYm8eHJAhn4sVYhsVK_lpPb3h7MHKCk4-cPGs5qcfk0iug9AsrOcTHkpZJW7Aw"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -78,7 +78,7 @@ const Order = require('../models/Orders.js')
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
+       const access_token = "A21AAIKdBfHsWNtpKMN-bnGJyVzuhWQRMvPRYm8eHJAhn4sVYhsVK_lpPb3h7MHKCk4-cPGs5qcfk0iug9AsrOcTHkpZJW7Aw"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -117,7 +117,7 @@ const Order = require('../models/Orders.js')
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
+       const access_token = "A21AAIKdBfHsWNtpKMN-bnGJyVzuhWQRMvPRYm8eHJAhn4sVYhsVK_lpPb3h7MHKCk4-cPGs5qcfk0iug9AsrOcTHkpZJW7Aw"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -157,7 +157,7 @@ const Order = require('../models/Orders.js')
         const params = new URLSearchParams()
         params.append('grant_type', 'client_credentials')
 
-       const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
+       const access_token = "A21AAIKdBfHsWNtpKMN-bnGJyVzuhWQRMvPRYm8eHJAhn4sVYhsVK_lpPb3h7MHKCk4-cPGs5qcfk0iug9AsrOcTHkpZJW7Aw"
 
        const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
             headers: {
@@ -187,7 +187,7 @@ const captureOrder = async(req, res) => {
 const {token} = req.query
 
 
-const access_token = "A21AAIsUXi2mvJ0GhFaHO3PztiJrpkESkra0BpqSfbIAemjsHHQg3zLrxR2cZL2ydwfJgQadvytKv-j3uxJBXOwFf5yR0_EMQ"
+const access_token = "A21AAIKdBfHsWNtpKMN-bnGJyVzuhWQRMvPRYm8eHJAhn4sVYhsVK_lpPb3h7MHKCk4-cPGs5qcfk0iug9AsrOcTHkpZJW7Aw"
 
     const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
         headers: {
@@ -244,7 +244,7 @@ await newOrder.save()
 
 
     
-return  res.send("payed")
+return  res.redirect('http://localhost:3001/calendary')
 
     
 
