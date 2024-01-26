@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const axios = require('axios') 
 const {PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET} = require('../config.js') 
 const Order = require('../models/Orders.js')
@@ -5,54 +8,60 @@ const Order = require('../models/Orders.js')
 
 
 
-    const createOrder1 = async (req, res) => {
-        const order = {
-            intent: "CAPTURE",
-            purchase_units: [
-                {
-                    amount: {
-                        currency_code: "USD",
-                        value: "100.00",
-                    },
+const createOrder1 = async (req, res) => {
+    const order = {
+        intent: "CAPTURE",
+        purchase_units: [
+            {
+                amount: {
+                    currency_code: "USD",
+                    value: "100.00",
                 },
-            ],
-            application_context: {
-                brand_name: "Mental Flex",
-                landing_page: "NO_PREFERENCE",
-                user_action: "PAY_NOW",
-                return_url: 'http://localhost:3000/payment/captureOrder',
-                cancel_url: 'http://localhost:3000/payment/cancelOrder',
             },
-        };
-    
-        // const params = new URLSearchParams()
-        // params.append('grant_type', 'client_credentials')
+        ],
+        application_context: {
+            brand_name: "Mental Flex",
+            landing_page: "NO_PREFERENCE",
+            user_action: "PAY_NOW",
+            return_url: 'http://localhost:3000/payment/captureOrder',
+            cancel_url: 'http://localhost:3000/payment/cancelOrder',
+        },
+    };
 
-        // const {data: {access_token}} = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
-        //     Authorization: {
-        //         username: PAYPAL_API_CLIENT,
-        //         password: PAYPAL_API_SECRET
-        //     }
-        // })
+    const params = new URLSearchParams();
+    params.append('grant_type', 'client_credentials');
 
-
-        
-
-       const access_token = "A21AAJn4m8mjOR0EeyO8YJ1Bh5nd3FY_hv6I20jY4yot0OS-eXxWVvBadCp672S6Odnxxbb__pWRaQmWFu8tXcINcdGe036mg"
-
-       const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
+    try {
+        const base64Credentials = Buffer.from(`${PAYPAL_API_CLIENT}:${PAYPAL_API_SECRET}`).toString('base64');
+        const response = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
             headers: {
+                Authorization: `Basic ${base64Credentials}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
 
-                Authorization: `Bearer ${access_token}`
-            
-            }
-        })
+        const { access_token } = response.data;
 
+        const orderResponse = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+            },
+        });
+        
+        
     
 
-       return  res.json(response.data)
-
+        return res.json(orderResponse.data);
+    } catch (error) {
+        console.error('Error obtaining access token or creating order:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
+
+
+   
+
+};
+
 
 
     const createOrder2 = async (req, res) => {
@@ -187,7 +196,20 @@ const captureOrder = async(req, res) => {
 const {token} = req.query
 
 
-const access_token = "A21AAJn4m8mjOR0EeyO8YJ1Bh5nd3FY_hv6I20jY4yot0OS-eXxWVvBadCp672S6Odnxxbb__pWRaQmWFu8tXcINcdGe036mg"
+const params = new URLSearchParams();
+params.append('grant_type', 'client_credentials');
+
+
+    const base64Credentials = Buffer.from(`${PAYPAL_API_CLIENT}:${PAYPAL_API_SECRET}`).toString('base64');
+    const responses = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
+        headers: {
+            Authorization: `Basic ${base64Credentials}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    });
+
+    const { access_token } = responses.data;
+
 
     const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
         headers: {
