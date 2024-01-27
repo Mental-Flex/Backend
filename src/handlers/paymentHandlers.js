@@ -84,22 +84,37 @@ const createOrder1 = async (req, res) => {
             },
         };
     
-        const params = new URLSearchParams()
-        params.append('grant_type', 'client_credentials')
+        const params = new URLSearchParams();
+    params.append('grant_type', 'client_credentials');
 
-       const access_token = "A21AAJn4m8mjOR0EeyO8YJ1Bh5nd3FY_hv6I20jY4yot0OS-eXxWVvBadCp672S6Odnxxbb__pWRaQmWFu8tXcINcdGe036mg"
-
-       const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
+    try {
+        const base64Credentials = Buffer.from(`${PAYPAL_API_CLIENT}:${PAYPAL_API_SECRET}`).toString('base64');
+        const response = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
             headers: {
+                Authorization: `Basic ${base64Credentials}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
 
-                Authorization: `Bearer ${access_token}`
-                
-            }
-        })
+        const { access_token } = response.data;
 
+        const orderResponse = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+            },
+        });
+        
+        
     
 
-       return  res.json(response.data)
+        return res.json(orderResponse.data);
+    } catch (error) {
+        console.error('Error obtaining access token or creating order:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+
+   
 
     }
 
@@ -123,22 +138,37 @@ const createOrder1 = async (req, res) => {
             },
         };
     
-        const params = new URLSearchParams()
-        params.append('grant_type', 'client_credentials')
+        const params = new URLSearchParams();
+    params.append('grant_type', 'client_credentials');
 
-       const access_token = "A21AAJn4m8mjOR0EeyO8YJ1Bh5nd3FY_hv6I20jY4yot0OS-eXxWVvBadCp672S6Odnxxbb__pWRaQmWFu8tXcINcdGe036mg"
-
-       const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
+    try {
+        const base64Credentials = Buffer.from(`${PAYPAL_API_CLIENT}:${PAYPAL_API_SECRET}`).toString('base64');
+        const response = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
             headers: {
+                Authorization: `Basic ${base64Credentials}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
 
-                Authorization: `Bearer ${access_token}`
-                
-            }
-        })
+        const { access_token } = response.data;
 
+        const orderResponse = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+            },
+        });
+        
+        
     
 
-       return  res.json(response.data)
+        return res.json(orderResponse.data);
+    } catch (error) {
+        console.error('Error obtaining access token or creating order:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+
+   
 
     }
 
@@ -163,23 +193,37 @@ const createOrder1 = async (req, res) => {
             },
         };
     
-        const params = new URLSearchParams()
-        params.append('grant_type', 'client_credentials')
-
-       const access_token = "A21AAJn4m8mjOR0EeyO8YJ1Bh5nd3FY_hv6I20jY4yot0OS-eXxWVvBadCp672S6Odnxxbb__pWRaQmWFu8tXcINcdGe036mg"
-
-       const response =  await axios.post (`${PAYPAL_API}/v2/checkout/orders`, order, {
-            headers: {
-
-                Authorization: `Bearer ${access_token}`
-                
-            }
-        })
-
+        const params = new URLSearchParams();
+        params.append('grant_type', 'client_credentials');
     
-
-       return  res.json(response.data)
-
+        try {
+            const base64Credentials = Buffer.from(`${PAYPAL_API_CLIENT}:${PAYPAL_API_SECRET}`).toString('base64');
+            const response = await axios.post(`${PAYPAL_API}/v1/oauth2/token`, params, {
+                headers: {
+                    Authorization: `Basic ${base64Credentials}`,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+    
+            const { access_token } = response.data;
+    
+            const orderResponse = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            
+            
+        
+    
+            return res.json(orderResponse.data);
+        } catch (error) {
+            console.error('Error obtaining access token or creating order:', error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    
+    
+       
     }
         
     

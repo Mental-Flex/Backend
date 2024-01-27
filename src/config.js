@@ -5,8 +5,8 @@
 
 
  
- const PAYPAL_API_CLIENT =process.env.PAYPAL_API_CLIENTs
- const PAYPAL_API_SECRET =process.env.PAYPAL_API_SECRETs
+ const PAYPAL_API_CLIENT =process.env.PAYPAL_API_CLIENT
+ const PAYPAL_API_SECRET =process.env.PAYPAL_API_SECRET
 PAYPAL_API = 'https://api-m.sandbox.paypal.com';
 
 
