@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const URI= 'mongodb+srv://sofiavictoriafranco:12345@mentalflex.hkkjzxj.mongodb.net/'
+const URI= 'mongodb+srv://sofiavictoriafranco:12345@mentalflex.hkkjzxj.mongodb.net/?retryWrites=true&w=majority'
 
 mongoose.connect(URI, {
     

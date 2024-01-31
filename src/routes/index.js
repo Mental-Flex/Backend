@@ -14,6 +14,7 @@ router.use("/auth", authRoutes);
 router.use("/publications", publicationsRoutes);
 router.use("/category", categoryRoutes);
 router.use("/testimonials", testimonialsRoutes);
+router.use("/ok", (req, res) => {res.send("ok")})
 
 
 
