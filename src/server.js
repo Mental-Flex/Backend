@@ -19,23 +19,21 @@ createRoles();
 // const upload = multer({ storage });
 // server.use(upload.single("image"));
 
-//!DEPLOY--->
-// const corsOptions = {
-//   origin: "https://frontend-pf-seven.vercel.app", 
-// };
+const corsOptions = {
+  origin: "https://www.mental-flex.com/", 
+};
 
 
 
 server.use(morgan("dev"));
 server.use(express.urlencoded({ extended: false }));
-server.use(cors());
-//!DEPLOY server.use(cors(corsOptions));
+server.use(cors(corsOptions));
 
 
 server.use(express.json());
 server.use(fileUpload({
     useTempFiles: true,
-    tempFileDir: './src/public/upload' // ./upload/
+    tempFileDir: './src/public/upload' 
 }));
 
 server.use("/", router);
