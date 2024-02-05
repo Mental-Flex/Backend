@@ -9,15 +9,15 @@ const multer = require("multer");
 const fileUpload = require('express-fileupload');
 createRoles();
 
-// const storage = multer.diskStorage({
-//   destination: "./public/upload/",
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-// });
+const storage = multer.diskStorage({
+  destination: "./public/upload/",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
-// const upload = multer({ storage });
-// server.use(upload.single("image"));
+const upload = multer({ storage });
+server.use(upload.single("image"));
 
 const corsOptions = {
   origin: "https://www.mental-flex.com/", 
@@ -31,10 +31,10 @@ server.use(cors(corsOptions));
 
 
 server.use(express.json());
-server.use(fileUpload({
-    useTempFiles: true,
-    tempFileDir: './src/public/upload' 
-}));
+// server.use(fileUpload({
+//     useTempFiles: true,
+//     tempFileDir: './src/public/upload' 
+// }));
 
 server.use("/", router);
 
