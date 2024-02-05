@@ -20,7 +20,7 @@ const upload = multer({ storage });
 server.use(upload.single("image"));
 
 const corsOptions = {
-  origin: "https://www.mental-flex.com/", 
+  origin: "https://www.mental-flex.com", 
 };
 
 
