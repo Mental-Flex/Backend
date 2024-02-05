@@ -6,7 +6,6 @@ const server = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const multer = require("multer"); 
-const fileUpload = require('express-fileupload');
 createRoles();
 
 const storage = multer.diskStorage({
@@ -31,10 +30,6 @@ server.use(cors(corsOptions));
 
 
 server.use(express.json());
-// server.use(fileUpload({
-//     useTempFiles: true,
-//     tempFileDir: './src/public/upload' 
-// }));
 
 server.use("/", router);
 
